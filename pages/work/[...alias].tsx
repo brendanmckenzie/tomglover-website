@@ -5,6 +5,7 @@ import { Footer } from "../../components/Footer";
 import { Header } from "../../components/Header";
 import { executeQuery } from "../../src/pokko";
 import Markdown from "react-markdown";
+import Link from "next/link";
 
 type ModuleProps = {
   type: string;
@@ -51,6 +52,11 @@ const Work: NextPage<WorkProps> = ({ title, body }) => (
           <Module key={idx} {...mod} />
         ))}
       </article>
+      <div className="article__actions">
+        <Link href="/work">
+          <a className="button --primary">More work</a>
+        </Link>
+      </div>
       <Footer />
     </div>
   </>
