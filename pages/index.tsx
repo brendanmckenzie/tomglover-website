@@ -1,34 +1,10 @@
+import * as React from "react";
 import Head from "next/head";
 import Link from "next/link";
+import { Feature, FeatureProps } from "../components/Feature";
 import { executeQuery } from "../src/pokko";
-
-export type FeatureProps = {
-  title: string;
-  category: string;
-  summary: string;
-  url: string;
-  thumbnailUrl?: string;
-};
-
-export const Feature: React.FC<FeatureProps> = ({
-  title,
-  category,
-  summary,
-  url,
-  thumbnailUrl,
-}) => (
-  <div className="feature">
-    <div className="feature__detail">
-      <small>{category}</small>
-      <strong>{title}</strong>
-      <p>{summary}</p>
-      <Link href={url}>Details</Link>
-    </div>
-    <div className="feature__image">
-      {thumbnailUrl ? <img src={thumbnailUrl} alt="" /> : null}
-    </div>
-  </div>
-);
+import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
 
 export type Brand = {
   name: string;
@@ -37,46 +13,38 @@ export type Brand = {
 
 export type HomePageProps = {
   title: string;
+  contactMessage: string;
   features: FeatureProps[];
   brands: Brand[];
 };
 
-const HomePage: React.FC<HomePageProps> = ({ title, features, brands }) => {
-  return (
-    <>
-      <Head>
-        <title>Glom Tover</title>
-      </Head>
-      <div className="container">
-        <div className="header">
-          <div className="header__logo">¡Hola! 👋</div>
-          <div className="header__actions">
-            <Link href="/work">Work</Link>
-            <Link href="/blog">Blog</Link>
-          </div>
+const HomePage: React.FC<HomePageProps> = ({
+  title,
+  contactMessage,
+  features,
+  brands,
+}) => (
+  <>
+    <Head>
+      <title>Glom Tover</title>
+    </Head>
+    <div className="container">
+      <Header />
+      <div className="hero">
+        <div className="hero__copy">{title}</div>
+        <div className="hero__actions">
+          <a className="button --primary" href="mailto:hello@tomglover.com.au">
+            Get in touch
+          </a>
         </div>
-        <div className="hero">
-          <div className="hero__copy">{title}</div>
-          <div className="hero__actions">
-            <a
-              className="button --primary"
-              href="mailto:hello@tomglover.com.au"
-            >
-              Get in touch
-            </a>
-          </div>
-        </div>
-        <div className="features">
-          {features.map((ent, idx) => (
-            <Feature
-              key={idx}
-              title={ent.title}
-              category={ent.category}
-              summary={ent.summary}
-              url={ent.url}
-            />
-          ))}
-        </div>
+      </div>
+      <div className="features">
+        {features.map((ent, idx) => (
+          <Feature key={idx} {...ent} />
+        ))}
+      </div>
+      <div className="brands__container">
+        <h2>I’ve worked with</h2>
         <div className="brands">
           {brands.map((ent, idx) => (
             <div key={idx} className="brand">
@@ -84,12 +52,22 @@ const HomePage: React.FC<HomePageProps> = ({ title, features, brands }) => {
             </div>
           ))}
         </div>
-        <div className="contact">contact</div>
-        <div className="footer">footer</div>
       </div>
-    </>
-  );
-};
+      <div className="contact__container">
+        <h2>Get in touch</h2>
+        <p>
+          <strong>{contactMessage}</strong>
+        </p>
+        <div className="contact__actions">
+          <a className="button --inverse" href="mailto:hello@tomglover.com.au">
+            Email me
+          </a>
+        </div>
+      </div>
+      <Footer />
+    </div>
+  </>
+);
 
 export async function getStaticProps() {
   const query = `
@@ -119,7 +97,14 @@ export async function getStaticProps() {
                 }
               }
               image {
-                url
+                url(
+                  process: {
+                    height: 600
+                    width: 600
+                    fit: COVER
+                    position: CENTRE
+                  }
+                )
               }
             }
           }
@@ -136,7 +121,8 @@ export async function getStaticProps() {
         }
       }
     }
-  }  
+  }
+  
   `;
   const res = await executeQuery(query);
 
@@ -145,8 +131,10 @@ export async function getStaticProps() {
     console.log("null data", JSON.stringify(res));
     return { props: {} };
   }
+
   const props: HomePageProps = {
     title: data.title,
+    contactMessage: data.contactMessage,
     features: data.features.map(
       (ent) =>
         ({

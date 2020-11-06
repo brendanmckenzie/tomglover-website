@@ -1,7 +1,60 @@
+import React from "react";
+import Head from "next/head";
 import { NextPage, GetStaticPaths, GetStaticProps } from "next";
+import { Footer } from "../../components/Footer";
+import { Header } from "../../components/Header";
 import { executeQuery } from "../../src/pokko";
+import Markdown from "react-markdown";
 
-const Work: NextPage = (props) => <pre>{JSON.stringify(props, null, 2)}</pre>;
+type ModuleProps = {
+  type: string;
+};
+
+type Image = ModuleProps & {
+  type: "Image";
+  source: {
+    url: string;
+  };
+};
+type Markdown = ModuleProps & {
+  type: "Markdown";
+  body: string;
+};
+
+type WorkProps = {
+  title: string;
+  body: (Image | Markdown)[];
+};
+
+const Module: React.FC<Image | Markdown> = (props) => {
+  switch (props.type) {
+    case "Markdown":
+      return <Markdown className="content">{props.body}</Markdown>;
+    case "Image":
+      if (props.source?.url) {
+        return <img src={props.source.url} />;
+      }
+  }
+  return null;
+};
+
+const Work: NextPage<WorkProps> = ({ title, body }) => (
+  <>
+    <Head>
+      <title>{title} - Work - Tom Glover</title>
+    </Head>
+    <div className="container">
+      <Header />
+      <article>
+        <h1>{title}</h1>
+        {body.map((mod, idx) => (
+          <Module key={idx} {...mod} />
+        ))}
+      </article>
+      <Footer />
+    </div>
+  </>
+);
 
 export default Work;
 
@@ -16,13 +69,24 @@ query($path: [String!]) {
 `;
 const querySingle = `
 query($path: [String!]) {
-  taxonomy(skip: 0, take: 50, filter: { path: $path, pathExact: true }) {
+  taxonomy(skip: 0, take: 1, filter: { path: $path, pathExact: true }) {
     nodes {
       entry {
         ... on Work {
           title
           alias
           summary
+          body {
+            __typename
+            ... on Image {
+              source {
+                url
+              }
+            }
+            ... on Markdown {
+              body
+            }
+          }
         }
       }
     }
@@ -49,12 +113,17 @@ export const getStaticProps: GetStaticProps = async (context) => {
     path: ["website", "home", "work"].concat(context.params.alias as string[]),
   });
 
+  const data = raw.data.taxonomy.nodes[0].entry;
   return {
-    props: JSON.parse(
-      JSON.stringify({
-        path: context.params.pokko,
-        data: raw.data.taxonomy.nodes[0].entry,
-      })
-    ),
+    props: {
+      title: data.title,
+      body: data.body.map(
+        ({ __typename, ...rest }) =>
+          ({
+            type: __typename,
+            ...rest,
+          } as ModuleProps)
+      ),
+    } as WorkProps,
   };
 };
