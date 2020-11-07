@@ -5,10 +5,22 @@ export const Footer: React.FC = () => (
     <div className="footer__left">
       <ul>
         <li>
-          <a href="https://www.linkedin.com/in/thomasedwardglover/">LinkedIn</a>
+          <a
+            href="https://www.linkedin.com/in/thomasedwardglover/"
+            target="_blank"
+            rel="noopener nofollow"
+          >
+            LinkedIn
+          </a>
         </li>
         <li>
-          <a href="https://twitter.com/tomeglover">Twitter</a>
+          <a
+            href="https://twitter.com/tomeglover"
+            target="_blank"
+            rel="noopener nofollow"
+          >
+            Twitter
+          </a>
         </li>
         <li>
           <a href="https://cdn.pokko.io/bca8b10a-6a84-48e6-87e2-6ed5e7f5b294/22e79771-4d7a-4120-b1c7-fbf9171401f9">
