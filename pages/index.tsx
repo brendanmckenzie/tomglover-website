@@ -69,66 +69,64 @@ const HomePage: React.FC<HomePageProps> = ({
   </>
 );
 
-export async function getStaticProps() {
-  const query = `
-  query {
-    entries {
-      allHome(skip: 0, take: 1) {
-        nodes {
-          id
-          title
-          contactMessage
-          links {
-            __typename
-            ... on Link {
-              text
-              target
-            }
+const query = `
+query {
+  entries {
+    allHome(skip: 0, take: 1) {
+      nodes {
+        id
+        title
+        contactMessage
+        links {
+          __typename
+          ... on Link {
+            text
+            target
           }
-          features {
-            __typename
-            ... on Work {
-              title
-              summary
-              alias
-              category {
-                ... on Category {
-                  name
+        }
+        features {
+          __typename
+          ... on Work {
+            title
+            summary
+            alias
+            category {
+              ... on Category {
+                name
+              }
+            }
+            image {
+              url(
+                process: {
+                  height: 600
+                  width: 600
+                  fit: COVER
+                  position: CENTRE
                 }
-              }
-              image {
-                url(
-                  process: {
-                    height: 600
-                    width: 600
-                    fit: COVER
-                    position: CENTRE
-                  }
-                )
-              }
+              )
             }
           }
-          brands {
-            __typename
-            ... on Brand {
-              link
-              logo {
-                url
-              }
-              name
+        }
+        brands {
+          __typename
+          ... on Brand {
+            link
+            logo {
+              url
             }
+            name
           }
         }
       }
     }
   }
-  
-  `;
+}
+`;
+export async function getStaticProps() {
   const res = await executeQuery(query);
 
   const data = res?.data?.entries?.allHome?.nodes[0] ?? null;
   if (!data) {
-    console.log("null data", JSON.stringify(res));
     return { props: {} };
   }
 

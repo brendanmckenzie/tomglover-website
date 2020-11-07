@@ -1,0 +1,56 @@
+.posts {
+  display: grid;
+  grid-auto-flow: column;
+  column-gap: 2rem;
+  row-gap: 2rem;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.post {
+  display: grid;
+  grid-template-rows: auto 1fr 1fr auto auto;
+  border: 1px solid rgb(242, 242, 242);
+  box-shadow: rgba(0, 0, 0, 0.06) 0px 9px 24px;
+  padding: 2rem 1rem;
+
+  small {
+    font-size: 1rem;
+    color: #a9aaab;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    line-height: 1.4;
+  }
+
+  & > span {
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+
+    & > span {
+      font-weight: normal;
+      margin-left: 0.5rem;
+      transition: all 150ms ease-in-out;
+    }
+  }
+
+  &__meta {
+    display: grid;
+    grid-auto-flow: column;
+    column-gap: 1rem;
+    justify-content: space-between;
+    color: #a9aaab;
+    font-size: 0.75rem;
+  }
+
+  &:hover {
+    & > span > span {
+      margin-left: 1rem;
+    }
+  }
+}

@@ -6,6 +6,12 @@
     width: 80%;
     font-size: 3rem;
     font-weight: bold;
+    line-height: 1.2;
+
+    @include mobile {
+      width: auto;
+      font-size: 2rem;
+    }
   }
 }
 
@@ -21,9 +27,19 @@
   box-shadow: 0px 3px 9px rgba(0, 0, 0, 0.1);
   transition: all 150ms ease-in-out;
 
+  @include mobile {
+    grid-template-columns: none;
+    grid-auto-flow: row;
+  }
+
   &__detail {
     padding: 3rem;
     display: grid;
+
+    @include mobile {
+      grid-row: 2;
+      padding: 1rem;
+    }
 
     small {
       font-size: 1rem;
@@ -54,9 +70,18 @@
     align-items: center;
 
     img {
-      width: 300px;
+      height: 100%;
       margin: 0;
       padding: 0;
+    }
+
+    @include mobile {
+      grid-row: 1;
+
+      img {
+        width: auto;
+        object-fit: cover;
+      }
     }
   }
 
@@ -94,11 +119,19 @@
 
   justify-items: center;
   align-items: center;
+
+  @include mobile {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .contact {
   &__container {
     display: grid;
     row-gap: 2rem;
+
+    @include mobile {
+      row-gap: 1rem;
+    }
   }
 }
