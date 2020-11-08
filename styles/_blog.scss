@@ -4,6 +4,11 @@
   column-gap: 2rem;
   row-gap: 2rem;
   grid-template-columns: repeat(3, 1fr);
+
+  @include mobile {
+    grid-template-columns: none;
+    grid-auto-flow: row;
+  }
 }
 
 .post {
