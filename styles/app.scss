@@ -1,10 +1,7 @@
 @import "https://cdn.pokko.io/p/fonts/Inter/inter.css";
 
-@mixin mobile {
-  @media screen and (max-width: 520px) {
-    @content;
-  }
-}
+@import "./palette";
+@import "./mixins";
 
 html {
   font-size: 16px;
@@ -34,13 +31,13 @@ p {
   display: inline-block;
 
   &.--primary {
-    background: #73abff;
+    background: var(--colour-primary);
     color: white;
   }
 
   &.--inverse {
-    color: #4b84e5;
-    background: #e3efff;
+    color: var(--colour-primary);
+    background: #eceafd;
   }
 }
 
@@ -50,8 +47,8 @@ a {
 }
 
 h2 {
-  font-size: 3rem;
-  font-weight: bold;
+  font-size: 1.5rem;
+  font-weight: 800;
   margin: 0 0 2rem 0;
   padding: 0;
 
@@ -72,7 +69,6 @@ img {
   display: grid;
   grid-auto-flow: row;
 
-  row-gap: 6rem;
   padding: 2rem;
 
   @include mobile {
@@ -80,87 +76,11 @@ img {
   }
 }
 
-.header {
-  display: grid;
-  grid-auto-flow: column;
-  justify-content: space-between;
-
-  &__logo {
-    color: #5393fe;
-    font-size: 2rem;
-    font-weight: bold;
-  }
-
-  &__actions {
-    display: grid;
-    grid-auto-flow: column;
-    column-gap: 2rem;
-    align-items: center;
-  }
-}
-
-.footer {
-  &__container {
-    display: grid;
-    grid-auto-flow: column;
-    column-gap: 1rem;
-    row-gap: 1rem;
-    align-items: center;
-
-    font-size: 0.75rem;
-
-    @include mobile {
-      grid-auto-flow: row;
-    }
-  }
-
-  &__left,
-  &__right {
-    ul {
-      list-style-type: none;
-      display: grid;
-      grid-auto-flow: column;
-      column-gap: 1rem;
-      align-items: center;
-      padding: 0;
-    }
-
-    img {
-      height: 2rem;
-    }
-  }
-
-  &__left {
-    ul {
-      justify-content: start;
-
-      @include mobile {
-        justify-content: center;
-      }
-
-      li {
-        font-weight: bold;
-      }
-    }
-  }
-
-  &__right {
-    ul {
-      justify-content: end;
-
-      @include mobile {
-        justify-content: center;
-      }
-
-      li {
-        color: #7d7d7d;
-      }
-    }
-  }
-}
-
+@import "./header";
+@import "./footer";
 @import "./home";
 @import "./blog";
+@import "./hero";
 
 .content {
   p {

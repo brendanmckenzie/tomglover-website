@@ -1,5 +1,6 @@
 import * as React from "react";
 import Link from "next/link";
+import { DarkModeIcon } from "./icons/DarkMode";
 
 export const Header: React.FC = () => (
   <div className="header">
@@ -15,6 +16,9 @@ export const Header: React.FC = () => (
       <Link href="/blog">
         <a>Blog</a>
       </Link>
+      <button>
+        <DarkModeIcon />
+      </button>
     </div>
   </div>
 );

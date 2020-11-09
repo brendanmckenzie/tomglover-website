@@ -1,0 +1,26 @@
+.hero {
+  margin-top: 9rem;
+  width: 80%;
+
+  @include mobile {
+    margin-top: 0;
+    width: auto;
+  }
+
+  &__title {
+    font-size: 2.75rem;
+    font-weight: bold;
+    line-height: 1.45;
+
+    margin-bottom: 1.75rem;
+  }
+
+  &__summary {
+    font-size: 2rem;
+    font-weight: 600;
+    line-height: 1.2;
+    color: #7d7d7d;
+
+    margin-bottom: 4rem;
+  }
+}

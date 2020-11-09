@@ -1,0 +1,13 @@
+@mixin mobile {
+  @media screen and (max-width: 520px) {
+    @content;
+  }
+}
+
+@mixin button-reset {
+  font-size: inherit;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  color: inherit;
+}

@@ -31,7 +31,11 @@ const HomePage: React.FC<HomePageProps> = ({
     <div className="container">
       <Header />
       <div className="hero">
-        <div className="hero__copy">{title}</div>
+        <div className="hero__title">{title}</div>
+        <p className="hero__summary">
+          A creative technology strategist. specialising in Emerging Technology,
+          Conversational AI &amp; Martech.
+        </p>
         <div className="hero__actions">
           <a className="button --primary" href="mailto:hello@tomglover.com.au">
             Get in touch
@@ -42,6 +46,14 @@ const HomePage: React.FC<HomePageProps> = ({
         {features.map((ent, idx) => (
           <Feature key={idx} {...ent} />
         ))}
+        <div className="features__more">
+          <Link href="/work">
+            <a>
+              <span>See more work</span>
+              <span>→</span>
+            </a>
+          </Link>
+        </div>
       </div>
       <div className="brands__container">
         <h2>I’ve worked with</h2>
