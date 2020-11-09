@@ -18,11 +18,13 @@ export const WorkPage: React.FC<WorkPageProps> = ({ features }) => (
     <div className="container">
       <Header />
 
-      <div className="features">
+      <div className="features__container">
         <h1>Work</h1>
-        {features.map((ent, idx) => (
-          <Feature key={idx} {...ent} />
-        ))}
+        <div className="features__list">
+          {features.map((ent, idx) => (
+            <Feature key={idx} {...ent} />
+          ))}
+        </div>
       </div>
       <Footer />
     </div>

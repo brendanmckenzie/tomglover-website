@@ -1,0 +1,133 @@
+.features {
+  &__container {
+    margin-top: 7rem;
+
+    h1 {
+      font-size: 3rem;
+    }
+  }
+
+  &__list {
+    margin-top: 3.5rem;
+    display: grid;
+    grid-auto-flow: row;
+    row-gap: 4.25rem;
+  }
+
+  &__more {
+    display: grid;
+    justify-content: flex-end;
+
+    a {
+      font-weight: 600;
+
+      span + span {
+        transition: all 150ms ease-in-out;
+        margin-left: 0.5rem;
+      }
+
+      &:hover {
+        color: var(--colour-primary);
+        span + span {
+          margin-left: 1rem;
+        }
+      }
+    }
+  }
+}
+
+.feature {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  box-shadow: 0px 3px 9px rgba(0, 0, 0, 0.1);
+  transition: all 150ms ease-in-out;
+
+  @include mobile {
+    grid-template-columns: none;
+    grid-auto-flow: row;
+  }
+
+  &__detail {
+    padding: 4.5rem 5rem 2.5rem 2.75rem;
+    display: grid;
+
+    @include mobile {
+      grid-row: 2;
+      padding: 1rem;
+    }
+
+    small {
+      font-size: 1rem;
+      line-height: 1.4;
+      display: block;
+      margin-bottom: 1rem;
+      color: #a9aaab;
+      font-weight: 600;
+    }
+
+    strong {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      line-height: 1.4;
+      font-weight: 600;
+
+      margin-bottom: 2rem;
+    }
+  }
+
+  &__image {
+    background-color: #f2f2f2;
+    transition: all 150ms ease-in-out;
+
+    display: grid;
+    justify-content: center;
+    align-items: center;
+
+    padding: 3.75rem 3.75rem 0 3.75rem;
+
+    img {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    @include mobile {
+      grid-row: 1;
+
+      img {
+        width: auto;
+        object-fit: cover;
+      }
+    }
+  }
+
+  &__details {
+    transition: all 150ms ease-in-out;
+    font-weight: 600;
+
+    span {
+      margin-left: 0.5rem;
+      transition: all 150ms ease-in-out;
+    }
+  }
+
+  &:hover {
+    box-shadow: 0px 9px 24px rgba(0, 0, 0, 0.1);
+
+    .feature__details {
+      color: var(--colour-primary);
+
+      span {
+        margin-left: 1rem;
+        color: var(--colour-primary);
+      }
+    }
+
+    .feature__image {
+      background-color: #c5dbff;
+    }
+  }
+}
