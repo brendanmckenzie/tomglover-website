@@ -13,6 +13,7 @@ export type Brand = {
 
 export type HomePageProps = {
   title: string;
+  summary: string;
   contactMessage: string;
   features: FeatureProps[];
   brands: Brand[];
@@ -20,6 +21,7 @@ export type HomePageProps = {
 
 const HomePage: React.FC<HomePageProps> = ({
   title,
+  summary,
   contactMessage,
   features,
   brands,
@@ -32,10 +34,7 @@ const HomePage: React.FC<HomePageProps> = ({
       <Header />
       <div className="hero">
         <div className="hero__title">{title}</div>
-        <p className="hero__summary">
-          A creative technology strategist. specialising in Emerging Technology,
-          Conversational AI &amp; Martech.
-        </p>
+        <p className="hero__summary">{summary}</p>
         <div className="hero__actions">
           <a className="button --primary" href="mailto:hello@tomglover.com.au">
             Get in touch
@@ -88,14 +87,8 @@ query {
       nodes {
         id
         title
+        summary
         contactMessage
-        links {
-          __typename
-          ... on Link {
-            text
-            target
-          }
-        }
         features {
           __typename
           ... on Work {
@@ -139,11 +132,18 @@ export async function getStaticProps() {
 
   const data = res?.data?.entries?.allHome?.nodes[0] ?? null;
   if (!data) {
+    if (res?.errors) {
+      console.warn("**** errors", JSON.stringify(res.errors));
+      return { props: {} };
+    }
+
+    console.log("**** no data", JSON.stringify(res));
     return { props: {} };
   }
 
   const props: HomePageProps = {
     title: data.title,
+    summary: data.summary,
     contactMessage: data.contactMessage,
     features: data.features.map(
       (ent) =>

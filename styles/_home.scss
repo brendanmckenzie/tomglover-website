@@ -4,6 +4,10 @@
   grid-auto-flow: row;
   row-gap: 4.25rem;
 
+  h1 {
+    font-size: 3rem;
+  }
+
   &__more {
     display: grid;
     justify-content: flex-end;

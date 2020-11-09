@@ -28,33 +28,36 @@ export const BlogListPage: React.FC<BlogListPageProps> = ({ posts }) => (
     <div className="container">
       <Header />
 
-      <div className="posts">
-        {posts.map((ent) => (
-          <Link
-            key={ent.id}
-            href={`/blog/${ent.date.substr(0, 4)}/${ent.alias}`}
-          >
-            <a className="post">
-              <small>{ent.category}</small>
-              <h3>{ent.title}</h3>
-              <p>{ent.summary}</p>
-              <span>
-                Read more
-                <span>→</span>
-              </span>
-              <div className="post__meta">
-                <span>{ent.author}</span>
+      <div className="posts__container">
+        <h1>Blog</h1>
+        <div className="posts__list">
+          {posts.map((ent) => (
+            <Link
+              key={ent.id}
+              href={`/blog/${ent.date.substr(0, 4)}/${ent.alias}`}
+            >
+              <a className="post">
+                <small>{ent.category}</small>
+                <h3>{ent.title}</h3>
+                <p>{ent.summary}</p>
                 <span>
-                  {new Date(ent.date).toLocaleDateString(undefined, {
-                    month: "long",
-                    day: "numeric",
-                    year: "numeric",
-                  })}
+                  Read more
+                  <span>→</span>
                 </span>
-              </div>
-            </a>
-          </Link>
-        ))}
+                <div className="post__meta">
+                  <span>{ent.author}</span>
+                  <span>
+                    {new Date(ent.date).toLocaleDateString(undefined, {
+                      month: "long",
+                      day: "numeric",
+                      year: "numeric",
+                    })}
+                  </span>
+                </div>
+              </a>
+            </Link>
+          ))}
+        </div>
       </div>
       <Footer />
     </div>

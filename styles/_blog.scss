@@ -1,13 +1,25 @@
 .posts {
-  display: grid;
-  grid-auto-flow: column;
-  column-gap: 2rem;
-  row-gap: 2rem;
-  grid-template-columns: repeat(3, 1fr);
+  &__container {
+    margin-top: 7rem;
 
-  @include mobile {
-    grid-template-columns: none;
-    grid-auto-flow: row;
+    h1 {
+      font-size: 3rem;
+    }
+  }
+
+  &__list {
+    margin-top: 3.5rem;
+
+    display: grid;
+    grid-auto-flow: column;
+    column-gap: 3.5rem;
+    row-gap: 3.5rem;
+    grid-template-columns: repeat(3, 1fr);
+
+    @include mobile {
+      grid-template-columns: none;
+      grid-auto-flow: row;
+    }
   }
 }
 
@@ -16,7 +28,7 @@
   grid-template-rows: auto 1fr 1fr auto auto;
   border: 1px solid rgb(242, 242, 242);
   box-shadow: rgba(0, 0, 0, 0.06) 0px 9px 24px;
-  padding: 2rem 1rem;
+  padding: 3.5rem 2.5rem 2rem 2.5rem;
 
   small {
     font-size: 1rem;

@@ -19,6 +19,7 @@ export const WorkPage: React.FC<WorkPageProps> = ({ features }) => (
       <Header />
 
       <div className="features">
+        <h1>Work</h1>
         {features.map((ent, idx) => (
           <Feature key={idx} {...ent} />
         ))}

@@ -22,5 +22,13 @@
         height: 1rem;
       }
     }
+
+    a {
+      &.--active {
+        padding-bottom: 1.75rem;
+        margin-bottom: calc(-1 * (1.75rem + 3px));
+        border-bottom: 3px solid var(--colour-primary);
+      }
+    }
   }
 }
