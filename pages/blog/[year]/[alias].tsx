@@ -127,7 +127,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     },
   });
 
-  const data = res.data.taxonomy.nodes[0].entry;
+  const data = res.data.entry;
   return {
     props: {
       title: data.title,

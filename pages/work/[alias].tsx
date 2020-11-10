@@ -82,7 +82,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const paths = res.data.taxonomy.nodes
     .map((ent) => ({
       params: {
-        alias: ent.path,
+        alias: ent.path[0],
       },
     }))
     .filter((ent) => ent.params.alias && ent.params.alias.length > 0);
@@ -94,12 +94,10 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const res = await client.query({
     query: querySingle,
     variables: {
-      path: ["website", "home", "work"].concat(
-        context.params.alias as string[]
-      ),
+      path: ["website", "home", "work", context.params.alias],
     },
   });
-  const data = res.data.taxonomy.nodes[0].entry;
+  const data = res.data.entry;
 
   return {
     props: {

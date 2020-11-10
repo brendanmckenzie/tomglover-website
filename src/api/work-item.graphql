@@ -1,30 +1,26 @@
 query($path: [String!]) {
-  taxonomy(skip: 0, take: 1, filter: { path: $path, pathExact: true }) {
-    nodes {
-      entry {
-        ... on Work {
-          title
-          alias
-          summary
-          category {
-            ... on Category {
-              name
-            }
-          }
-          image {
+  entry(path: $path) {
+    ... on Work {
+      title
+      alias
+      summary
+      category {
+        ... on Category {
+          name
+        }
+      }
+      image {
+        url
+      }
+      body {
+        __typename
+        ... on Image {
+          source {
             url
           }
-          body {
-            __typename
-            ... on Image {
-              source {
-                url
-              }
-            }
-            ... on Markdown {
-              body
-            }
-          }
+        }
+        ... on Markdown {
+          body
         }
       }
     }
