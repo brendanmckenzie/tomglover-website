@@ -24,9 +24,9 @@ export const Header: React.FC = () => {
             Blog
           </a>
         </Link>
-        <button>
+        {/* <button>
           <DarkModeIcon />
-        </button>
+        </button> */}
       </div>
     </div>
   );
