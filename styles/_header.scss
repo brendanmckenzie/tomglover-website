@@ -15,6 +15,10 @@
     column-gap: 7rem;
     align-items: center;
 
+    @include mobile {
+      column-gap: 2rem;
+    }
+
     button {
       @include button-reset;
 

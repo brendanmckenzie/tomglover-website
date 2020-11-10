@@ -18,6 +18,10 @@
     display: grid;
     justify-content: flex-end;
 
+    @include mobile {
+      justify-content: center;
+    }
+
     a {
       font-weight: 600;
 

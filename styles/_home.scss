@@ -1,6 +1,10 @@
 .brands {
   &__container {
     margin-top: 17rem;
+
+    @include mobile {
+      margin-top: 8rem;
+    }
   }
 
   display: grid;
@@ -12,7 +16,7 @@
   align-items: center;
 
   @include mobile {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
