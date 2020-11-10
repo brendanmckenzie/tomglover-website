@@ -6,6 +6,14 @@ query($path: [String!]) {
           title
           alias
           summary
+          category {
+            ... on Category {
+              name
+            }
+          }
+          image {
+            url
+          }
           body {
             __typename
             ... on Image {

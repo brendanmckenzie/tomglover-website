@@ -1,0 +1,27 @@
+.article {
+  &__header {
+    margin-top: 3rem;
+    margin-bottom: 4.5rem;
+
+    text-align: center;
+
+    h1 {
+      font-size: 2.5rem;
+
+      max-width: 60ch;
+      width: 100%;
+      margin-bottom: 2rem;
+    }
+
+    small {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: #a9aaab;
+    }
+  }
+
+  &__body {
+    margin-bottom: 6rem;
+  }
+}

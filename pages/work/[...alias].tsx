@@ -24,6 +24,8 @@ type Markdown = ModuleProps & {
 
 type WorkProps = {
   title: string;
+  imageUrl: string;
+  category: string;
   body: (Image | Markdown)[];
 };
 
@@ -39,22 +41,26 @@ const Module: React.FC<Image | Markdown> = (props) => {
   return null;
 };
 
-const Work: NextPage<WorkProps> = ({ title, body }) => (
+const Work: NextPage<WorkProps> = ({ title, category, imageUrl, body }) => (
   <>
     <Head>
       <title>{title} - Work - Tom Glover</title>
     </Head>
     <div className="container">
       <Header />
-      <article>
+      <section className="article__header">
+        <small>{category}</small>
         <h1>{title}</h1>
+        <img src={imageUrl} alt={title} />
+      </section>
+      <article className="article__body">
         {body.map((mod, idx) => (
           <Module key={idx} {...mod} />
         ))}
       </article>
       <div className="article__actions">
         <Link href="/work">
-          <a className="button --primary">More work</a>
+          <a className="button --inverse">See all work</a>
         </Link>
       </div>
       <Footer />
@@ -93,11 +99,13 @@ export const getStaticProps: GetStaticProps = async (context) => {
       ),
     },
   });
-
   const data = res.data.taxonomy.nodes[0].entry;
+
   return {
     props: {
       title: data.title,
+      imageUrl: data.image?.url ?? null,
+      category: data.category?.name || null,
       body: data.body.map(
         ({ __typename, ...rest }) =>
           ({

@@ -33,6 +33,7 @@
   &__left {
     ul {
       justify-content: start;
+      column-gap: 3rem;
 
       @include mobile {
         justify-content: center;

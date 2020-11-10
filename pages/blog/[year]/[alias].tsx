@@ -24,6 +24,8 @@ type Markdown = ModuleProps & {
 
 type BlogProps = {
   title: string;
+  category: string;
+  imageUrl: string;
   body: (Image | Markdown)[];
 };
 
@@ -39,22 +41,26 @@ const Module: React.FC<Image | Markdown> = (props) => {
   return null;
 };
 
-const Blog: NextPage<BlogProps> = ({ title, body }) => (
+const Blog: NextPage<BlogProps> = ({ title, category, imageUrl, body }) => (
   <>
     <Head>
       <title>{title} - Blog - Tom Glover</title>
     </Head>
     <div className="container">
       <Header />
-      <article>
+      <section className="article__header">
+        <small>{category}</small>
         <h1>{title}</h1>
+        {imageUrl ? <img src={imageUrl} alt={title} /> : null}
+      </section>
+      <article className="article__body">
         {body.map((mod, idx) => (
           <Module key={idx} {...mod} />
         ))}
       </article>
       <div className="article__actions">
         <Link href="/blog">
-          <a className="button --primary">More</a>
+          <a className="button --inverse">See all articles</a>
         </Link>
       </div>
       <Footer />
@@ -104,6 +110,9 @@ export const getStaticProps: GetStaticProps = async (context) => {
   return {
     props: {
       title: data.title,
+      imageUrl: data.image?.url ?? null,
+      category: data.category?.name || null,
+
       body: data.body.map(
         ({ __typename, ...rest }) =>
           ({

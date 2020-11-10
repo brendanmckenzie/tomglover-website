@@ -15,10 +15,14 @@ export const Header: React.FC = () => {
       </div>
       <div className="header__actions">
         <Link href="/work">
-          <a className={pathname === "/work" ? "--active" : undefined}>Work</a>
+          <a className={pathname.startsWith("/work") ? "--active" : undefined}>
+            Work
+          </a>
         </Link>
         <Link href="/blog">
-          <a className={pathname === "/blog" ? "--active" : undefined}>Blog</a>
+          <a className={pathname.startsWith("/blog") ? "--active" : undefined}>
+            Blog
+          </a>
         </Link>
         <button>
           <DarkModeIcon />

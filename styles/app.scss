@@ -16,8 +16,6 @@ html {
 
 body {
   font-family: "Inter";
-  display: grid;
-  justify-items: center;
 }
 
 p {
@@ -65,14 +63,13 @@ img {
 .container {
   width: 100%;
   max-width: 979px;
-
-  display: grid;
-  grid-auto-flow: row;
+  margin: 0 auto;
 
   padding: 2rem;
 
   @include mobile {
     padding: 1rem;
+    margin: 0;
   }
 }
 
@@ -82,11 +79,12 @@ img {
 @import "./blog";
 @import "./hero";
 @import "./features";
+@import "./work";
 
 .content {
   p {
-    margin-bottom: 1rem;
-    line-height: 1.6;
+    margin-bottom: 2rem;
+    line-height: 1.8;
     text-align: justify;
   }
 }
@@ -102,28 +100,15 @@ article {
     margin-bottom: 1.5rem;
   }
 
-  h1 {
-    font-size: 2.5rem;
-
-    max-width: 60ch;
-    width: 100%;
-    text-align: center;
-    margin-bottom: 2rem;
-  }
-
   .content {
     max-width: 60ch;
     width: 100%;
   }
 
-  img:not(:first-of-type) {
+  img {
     margin: 4rem 0;
     max-width: 60ch;
     width: 100%;
-  }
-
-  img:first-of-type {
-    margin-bottom: 4rem;
   }
 }
 
