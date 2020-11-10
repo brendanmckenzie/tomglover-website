@@ -10,13 +10,13 @@ query($path: [String!]) {
         }
       }
       image {
-        url
+        url(process: { width: 1200, fit: COVER, position: CENTRE })
       }
       body {
         __typename
         ... on Image {
           source {
-            url
+            url(process: { width: 1200, fit: COVER, position: CENTRE })
           }
         }
         ... on Markdown {
