@@ -1,0 +1,23 @@
+query {
+  entries {
+    allWork(skip: 0, take: 25, orderBy: TITLE_ASC) {
+      nodes {
+        id
+        title
+        alias
+        summary
+        category {
+          ... on Category {
+            name
+          }
+        }
+        image {
+          url(
+            process: { height: 600, width: 600, fit: COVER, position: CENTRE }
+          )
+        }
+      }
+      totalCount
+    }
+  }
+}

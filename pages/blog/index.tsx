@@ -1,10 +1,12 @@
-import { executeQuery } from "../../src/pokko";
+import { client } from "../../src/pokko";
 
 import * as React from "react";
 import Head from "next/head";
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
 import Link from "next/link";
+
+const query = require("../../src/api/blog-list.graphql");
 
 export type BlogProps = {
   id: string;
@@ -64,35 +66,10 @@ export const BlogListPage: React.FC<BlogListPageProps> = ({ posts }) => (
   </>
 );
 
-const query = `
-query {
-  entries {
-    allArticle(skip: 0, take: 25, orderBy: TITLE_ASC) {
-      nodes {
-        id
-        title
-        alias
-        date
-        summary
-        category {
-          ... on Category {
-            name
-          }
-        }
-        author {
-          ... on ArticleAuthor {
-            name
-          }
-        }
-      }
-      totalCount
-    }
-  }
-}
-`;
-
 export async function getStaticProps() {
-  const res = await executeQuery(query);
+  const res = await client.query({
+    query,
+  });
 
   const data = res?.data?.entries?.allArticle?.nodes ?? [];
   if (!data) {

@@ -1,0 +1,7 @@
+query($path: [String!]) {
+  taxonomy(skip: 0, take: 50, filter: { path: $path }) {
+    nodes {
+      path
+    }
+  }
+}

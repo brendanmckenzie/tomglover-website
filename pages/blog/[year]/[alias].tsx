@@ -3,7 +3,7 @@ import Head from "next/head";
 import { NextPage, GetStaticPaths, GetStaticProps } from "next";
 import { Footer } from "../../../components/Footer";
 import { Header } from "../../../components/Header";
-import { executeQuery } from "../../../src/pokko";
+import { client } from "../../../src/pokko";
 import Markdown from "react-markdown";
 import Link from "next/link";
 
@@ -64,46 +64,16 @@ const Blog: NextPage<BlogProps> = ({ title, body }) => (
 
 export default Blog;
 
-const query = `
-query($path: [String!]) {
-  taxonomy(skip: 0, take: 50, filter: { path: $path }) {
-    nodes {
-      path
-    }
-  }
-}
-`;
-const querySingle = `
-query($path: [String!]) {
-  taxonomy(skip: 0, take: 1, filter: { path: $path, pathExact: true }) {
-    nodes {
-      entry {
-        ... on Article {
-          title
-          alias
-          summary
-          body {
-            __typename
-            ... on Image {
-              source {
-                url
-              }
-            }
-            ... on Markdown {
-              body
-            }
-          }
-        }
-      }
-    }
-  }
-}
-`;
+const query = require("../../../src/api/blog-paths.graphql");
+const querySingle = require("../../../src/api/blog-item.graphql");
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const raw = await executeQuery(query, { path: ["website", "home", "blog"] });
+  const res = await client.query({
+    query,
+    variables: { path: ["website", "home", "blog"] },
+  });
 
-  const paths = raw.data.taxonomy.nodes
+  const paths = res.data.taxonomy.nodes
     .filter((ent) => ent.path.length > 0)
     .map((ent) => ({
       params: {
@@ -117,17 +87,20 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const raw = await executeQuery(querySingle, {
-    path: [
-      "website",
-      "home",
-      "blog",
-      context.params.year,
-      context.params.alias,
-    ],
+  const res = await client.query({
+    query: querySingle,
+    variables: {
+      path: [
+        "website",
+        "home",
+        "blog",
+        context.params.year,
+        context.params.alias,
+      ],
+    },
   });
 
-  const data = raw.data.taxonomy.nodes[0].entry;
+  const data = res.data.taxonomy.nodes[0].entry;
   return {
     props: {
       title: data.title,

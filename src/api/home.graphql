@@ -1,0 +1,45 @@
+query {
+  entries {
+    allHome(skip: 0, take: 1) {
+      nodes {
+        id
+        title
+        summary
+        contactMessage
+        features {
+          __typename
+          ... on Work {
+            title
+            summary
+            alias
+            category {
+              ... on Category {
+                name
+              }
+            }
+            image {
+              url(
+                process: {
+                  height: 600
+                  width: 600
+                  fit: COVER
+                  position: CENTRE
+                }
+              )
+            }
+          }
+        }
+        brands {
+          __typename
+          ... on Brand {
+            link
+            logo {
+              url
+            }
+            name
+          }
+        }
+      }
+    }
+  }
+}

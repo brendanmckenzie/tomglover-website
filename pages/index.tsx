@@ -2,9 +2,11 @@ import * as React from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { Feature, FeatureProps } from "../components/Feature";
-import { executeQuery } from "../src/pokko";
+import { client } from "../src/pokko";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
+
+const query = require("../src/api/home.graphql");
 
 export type Brand = {
   name: string;
@@ -41,7 +43,7 @@ const HomePage: React.FC<HomePageProps> = ({
           </a>
         </div>
       </div>
-      <div className="features">
+      <div className="features__list">
         {features.map((ent, idx) => (
           <Feature key={idx} {...ent} />
         ))}
@@ -80,55 +82,10 @@ const HomePage: React.FC<HomePageProps> = ({
   </>
 );
 
-const query = `
-query {
-  entries {
-    allHome(skip: 0, take: 1) {
-      nodes {
-        id
-        title
-        summary
-        contactMessage
-        features {
-          __typename
-          ... on Work {
-            title
-            summary
-            alias
-            category {
-              ... on Category {
-                name
-              }
-            }
-            image {
-              url(
-                process: {
-                  height: 600
-                  width: 600
-                  fit: COVER
-                  position: CENTRE
-                }
-              )
-            }
-          }
-        }
-        brands {
-          __typename
-          ... on Brand {
-            link
-            logo {
-              url
-            }
-            name
-          }
-        }
-      }
-    }
-  }
-}
-`;
 export async function getStaticProps() {
-  const res = await executeQuery(query);
+  const res = await client.query({
+    query,
+  });
 
   const data = res?.data?.entries?.allHome?.nodes[0] ?? null;
   if (!data) {

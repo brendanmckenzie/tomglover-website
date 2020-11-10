@@ -1,0 +1,24 @@
+query {
+  entries {
+    allArticle(skip: 0, take: 25, orderBy: TITLE_ASC) {
+      nodes {
+        id
+        title
+        alias
+        date
+        summary
+        category {
+          ... on Category {
+            name
+          }
+        }
+        author {
+          ... on ArticleAuthor {
+            name
+          }
+        }
+      }
+      totalCount
+    }
+  }
+}

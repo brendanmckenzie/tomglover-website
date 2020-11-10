@@ -3,7 +3,7 @@ import Head from "next/head";
 import { NextPage, GetStaticPaths, GetStaticProps } from "next";
 import { Footer } from "../../components/Footer";
 import { Header } from "../../components/Header";
-import { executeQuery } from "../../src/pokko";
+import { client } from "../../src/pokko";
 import Markdown from "react-markdown";
 import Link from "next/link";
 
@@ -64,46 +64,16 @@ const Work: NextPage<WorkProps> = ({ title, body }) => (
 
 export default Work;
 
-const query = `
-query($path: [String!]) {
-  taxonomy(skip: 0, take: 50, filter: { path: $path }) {
-    nodes {
-      path
-    }
-  }
-}
-`;
-const querySingle = `
-query($path: [String!]) {
-  taxonomy(skip: 0, take: 1, filter: { path: $path, pathExact: true }) {
-    nodes {
-      entry {
-        ... on Work {
-          title
-          alias
-          summary
-          body {
-            __typename
-            ... on Image {
-              source {
-                url
-              }
-            }
-            ... on Markdown {
-              body
-            }
-          }
-        }
-      }
-    }
-  }
-}
-`;
+const query = require("../../src/api/work-paths.graphql");
+const querySingle = require("../../src/api/work-item.graphql");
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const raw = await executeQuery(query, { path: ["website", "home", "work"] });
+  const res = await client.query({
+    query,
+    variables: { path: ["website", "home", "work"] },
+  });
 
-  const paths = raw.data.taxonomy.nodes
+  const paths = res.data.taxonomy.nodes
     .map((ent) => ({
       params: {
         alias: ent.path,
@@ -115,11 +85,16 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const raw = await executeQuery(querySingle, {
-    path: ["website", "home", "work"].concat(context.params.alias as string[]),
+  const res = await client.query({
+    query: querySingle,
+    variables: {
+      path: ["website", "home", "work"].concat(
+        context.params.alias as string[]
+      ),
+    },
   });
 
-  const data = raw.data.taxonomy.nodes[0].entry;
+  const data = res.data.taxonomy.nodes[0].entry;
   return {
     props: {
       title: data.title,

@@ -1,22 +1,24 @@
+import {
+  ApolloClient,
+  ApolloClientOptions,
+  InMemoryCache,
+  NormalizedCacheObject,
+} from "@apollo/client";
+
 const config = {
-  token: process.env.POK_TOKEN!,
-  project: process.env.POK_PROJECT!,
   environment: process.env.POK_ENVIRONMENT!,
+  project: process.env.POK_PROJECT!,
+  token: process.env.POK_TOKEN!,
 };
 
-const endpoint = `https://app.pokko.io/${config.project}/${config.environment}/graphql`;
+const options: ApolloClientOptions<NormalizedCacheObject> = {
+  cache: new InMemoryCache(),
 
-const headers = {
-  "X-Token": config.token,
-  "Content-type": "application/json",
+  headers: {
+    "X-Token": config.token,
+  },
+
+  uri: `https://app.pokko.io/${config.project}/${config.environment}/graphql`,
 };
 
-export const executeQuery = (query: any, variables?: any) =>
-  fetch(endpoint, {
-    headers,
-    method: "POST",
-    body: JSON.stringify({
-      query,
-      variables,
-    }),
-  }).then((res) => res.json());
+export const client = new ApolloClient(options);

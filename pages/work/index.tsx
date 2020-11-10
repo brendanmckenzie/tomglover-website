@@ -1,10 +1,12 @@
-import { executeQuery } from "../../src/pokko";
+import { client } from "../../src/pokko";
 
 import * as React from "react";
 import { Feature, FeatureProps } from "../../components/Feature";
 import Head from "next/head";
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
+
+const query = require("../../src/api/work-list.graphql");
 
 export type WorkPageProps = {
   features: FeatureProps[];
@@ -31,34 +33,10 @@ export const WorkPage: React.FC<WorkPageProps> = ({ features }) => (
   </>
 );
 
-const query = `
-query {
-  entries {
-    allWork(skip: 0, take: 25, orderBy: TITLE_ASC) {
-      nodes {
-        id
-        title
-        alias
-        summary
-        category {
-          ... on Category {
-            name
-          }
-        }
-        image {
-          url(
-            process: { height: 600, width: 600, fit: COVER, position: CENTRE }
-          )
-        }
-      }
-      totalCount
-    }
-  }
-}
-`;
-
 export async function getStaticProps() {
-  const res = await executeQuery(query);
+  const res = await client.query({
+    query,
+  });
 
   const data = res?.data?.entries?.allWork?.nodes ?? [];
   if (!data) {
