@@ -5,6 +5,12 @@ query($path: [String!]) {
         ... on Article {
           title
           alias
+          date
+          author {
+            ... on ArticleAuthor {
+              name
+            }
+          }
           summary
           category {
             ... on Category {

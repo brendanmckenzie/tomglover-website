@@ -49,9 +49,9 @@ const Work: NextPage<WorkProps> = ({ title, category, imageUrl, body }) => (
     <div className="container">
       <Header />
       <section className="article__header">
-        <small>{category}</small>
+        {category ? <small>{category}</small> : null}
         <h1>{title}</h1>
-        <img src={imageUrl} alt={title} />
+        {imageUrl ? <img src={imageUrl} alt={title} /> : null}
       </section>
       <article className="article__body">
         {body.map((mod, idx) => (

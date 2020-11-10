@@ -26,6 +26,8 @@ type BlogProps = {
   title: string;
   category: string;
   imageUrl: string;
+  date: string;
+  author: string;
   body: (Image | Markdown)[];
 };
 
@@ -41,7 +43,14 @@ const Module: React.FC<Image | Markdown> = (props) => {
   return null;
 };
 
-const Blog: NextPage<BlogProps> = ({ title, category, imageUrl, body }) => (
+const Blog: NextPage<BlogProps> = ({
+  title,
+  date,
+  author,
+  category,
+  imageUrl,
+  body,
+}) => (
   <>
     <Head>
       <title>{title} - Blog - Tom Glover</title>
@@ -49,8 +58,20 @@ const Blog: NextPage<BlogProps> = ({ title, category, imageUrl, body }) => (
     <div className="container">
       <Header />
       <section className="article__header">
-        <small>{category}</small>
+        {category ? <small>{category}</small> : null}
         <h1>{title}</h1>
+
+        <div className="article__details">
+          <span>{author}</span>
+          <span>
+            {new Date(date).toLocaleDateString(undefined, {
+              year: "numeric",
+              day: "numeric",
+              month: "long",
+            })}
+          </span>
+        </div>
+
         {imageUrl ? <img src={imageUrl} alt={title} /> : null}
       </section>
       <article className="article__body">
@@ -110,8 +131,10 @@ export const getStaticProps: GetStaticProps = async (context) => {
   return {
     props: {
       title: data.title,
+      date: data.date,
       imageUrl: data.image?.url ?? null,
       category: data.category?.name || null,
+      author: data.author?.name || null,
 
       body: data.body.map(
         ({ __typename, ...rest }) =>
