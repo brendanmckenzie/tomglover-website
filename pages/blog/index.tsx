@@ -81,7 +81,7 @@ export async function getStaticProps() {
       (ent) =>
         ({
           alias: ent.alias,
-          author: ent.author.name,
+          author: ent.author?.name || null,
           date: ent.date,
           id: ent.id,
           title: ent.title,
