@@ -66,36 +66,30 @@
       display: block;
       margin-bottom: 1rem;
       color: #a9aaab;
-      font-weight: 600;
+      font-weight: 500;
     }
 
     strong {
       font-size: 1.5rem;
       margin-bottom: 1rem;
+      font-weight: 600;
     }
 
     p {
       line-height: 1.4;
-      font-weight: 600;
 
       margin-bottom: 2rem;
     }
   }
 
   &__image {
-    background-color: #f2f2f2;
-    transition: all 150ms ease-in-out;
-
-    display: grid;
-    justify-content: center;
-    align-items: center;
-
-    padding: 3.75rem 3.75rem 0 3.75rem;
-
     img {
-      height: 100%;
+      height: auto;
+      min-height: 0;
+      width: 100%;
       margin: 0;
       padding: 0;
+      object-fit: cover;
     }
 
     @include mobile {

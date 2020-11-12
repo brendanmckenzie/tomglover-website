@@ -20,8 +20,8 @@ query {
             image {
               url(
                 process: {
-                  height: 600
-                  width: 600
+                  height: 780
+                  width: 1230
                   fit: COVER
                   position: CENTRE
                 }
