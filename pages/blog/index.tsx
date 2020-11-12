@@ -25,7 +25,7 @@ export type BlogListPageProps = {
 export const BlogListPage: React.FC<BlogListPageProps> = ({ posts }) => (
   <>
     <Head>
-      <title>Blog - Glom Tover</title>
+      <title>Blog - Tom Glover</title>
     </Head>
     <div className="container">
       <Header />

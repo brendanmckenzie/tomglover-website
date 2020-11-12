@@ -15,7 +15,7 @@ export type WorkPageProps = {
 export const WorkPage: React.FC<WorkPageProps> = ({ features }) => (
   <>
     <Head>
-      <title>Work - Glom Tover</title>
+      <title>Work - Tom Glover</title>
     </Head>
     <div className="container">
       <Header />

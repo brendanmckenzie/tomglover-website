@@ -11,6 +11,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, maximum-scale=1"
         />
+        <link rel="icon" href="/favicon.svg" />
       </Head>
       <Component {...pageProps} />
     </>

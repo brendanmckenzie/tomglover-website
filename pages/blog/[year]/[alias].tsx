@@ -6,6 +6,7 @@ import { Header } from "../../../components/Header";
 import { client } from "../../../src/pokko";
 import Markdown from "react-markdown";
 import Link from "next/link";
+import { Sharing } from "../..";
 
 type ModuleProps = {
   type: string;
@@ -29,6 +30,7 @@ type BlogProps = {
   date: string;
   author: string;
   body: (Image | Markdown)[];
+  sharing: Sharing;
 };
 
 const Module: React.FC<Image | Markdown> = (props) => {
@@ -50,10 +52,13 @@ const Blog: NextPage<BlogProps> = ({
   category,
   imageUrl,
   body,
+  sharing,
 }) => (
   <>
     <Head>
-      <title>{title} - Blog - Tom Glover</title>
+      <title>{sharing.title} - Blog - Tom Glover</title>
+      <meta name="description" content={sharing.description} />
+      <meta property="og:image" content={sharing.image} />
     </Head>
     <div className="container">
       <Header />
@@ -143,6 +148,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
             ...rest,
           } as ModuleProps)
       ),
+      sharing: {
+        title: data.shareTitle || null,
+        description: data.shareDescription || null,
+        image: data.shareImage?.url || null,
+      },
     } as BlogProps,
   };
 };

@@ -39,6 +39,13 @@ query {
             name
           }
         }
+        shareTitle
+        shareDescription
+        shareImage {
+          url(
+            process: { height: 630, width: 1200, fit: COVER, position: CENTRE }
+          )
+        }
       }
     }
   }

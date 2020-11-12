@@ -8,6 +8,12 @@ import { Footer } from "../components/Footer";
 
 const query = require("../src/api/home.graphql");
 
+export type Sharing = {
+  title: string;
+  description: string;
+  image: string;
+};
+
 export type Brand = {
   name: string;
   image?: string;
@@ -19,6 +25,7 @@ export type HomePageProps = {
   contactMessage: string;
   features: FeatureProps[];
   brands: Brand[];
+  sharing: Sharing;
 };
 
 const HomePage: React.FC<HomePageProps> = ({
@@ -27,10 +34,13 @@ const HomePage: React.FC<HomePageProps> = ({
   contactMessage,
   features,
   brands,
+  sharing,
 }) => (
   <>
     <Head>
-      <title>Glom Tover</title>
+      <title>{sharing.title}</title>
+      <meta name="description" content={sharing.description} />
+      <meta property="og:image" content={sharing.image} />
     </Head>
     <div className="container">
       <Header />
@@ -119,6 +129,11 @@ export async function getStaticProps() {
           image: ent.logo?.url ?? null,
         } as Brand)
     ),
+    sharing: {
+      title: data.shareTitle || null,
+      description: data.shareDescription || null,
+      image: data.shareImage?.url || null,
+    },
   };
 
   return {

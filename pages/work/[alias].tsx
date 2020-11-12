@@ -6,6 +6,7 @@ import { Header } from "../../components/Header";
 import { client } from "../../src/pokko";
 import Markdown from "react-markdown";
 import Link from "next/link";
+import { Sharing } from "..";
 
 type ModuleProps = {
   type: string;
@@ -27,6 +28,7 @@ type WorkProps = {
   imageUrl: string;
   category: string;
   body: (Image | Markdown)[];
+  sharing: Sharing;
 };
 
 const Module: React.FC<Image | Markdown> = (props) => {
@@ -41,10 +43,18 @@ const Module: React.FC<Image | Markdown> = (props) => {
   return null;
 };
 
-const Work: NextPage<WorkProps> = ({ title, category, imageUrl, body }) => (
+const Work: NextPage<WorkProps> = ({
+  title,
+  category,
+  imageUrl,
+  body,
+  sharing,
+}) => (
   <>
     <Head>
-      <title>{title} - Work - Tom Glover</title>
+      <title>{sharing.title} - Work - Tom Glover</title>
+      <meta name="description" content={sharing.description} />
+      <meta property="og:image" content={sharing.image} />
     </Head>
     <div className="container">
       <Header />
@@ -111,6 +121,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
             ...rest,
           } as ModuleProps)
       ),
+      sharing: {
+        title: data.shareTitle || null,
+        description: data.shareDescription || null,
+        image: data.shareImage?.url || null,
+      },
     } as WorkProps,
   };
 };
