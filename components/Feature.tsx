@@ -19,9 +19,11 @@ export const Feature: React.FC<FeatureProps> = ({
   <Link href={url}>
     <a className="feature">
       <div className="feature__detail">
-        <small>{category}</small>
-        <strong>{title}</strong>
-        <p>{summary}</p>
+        <div>
+          <small>{category}</small>
+          <strong>{title}</strong>
+          <p>{summary}</p>
+        </div>
         <span className="feature__details">
           Details
           <span>→</span>
@@ -29,6 +31,7 @@ export const Feature: React.FC<FeatureProps> = ({
       </div>
       <div className="feature__image">
         {thumbnailUrl ? <img src={thumbnailUrl} alt="" /> : null}
+        <div className="feature__image-overlay" />
       </div>
     </a>
   </Link>

@@ -56,6 +56,7 @@
   &__detail {
     padding: 4.5rem 5rem 2.5rem 2.75rem;
     display: grid;
+    grid-template-rows: 1fr auto;
 
     @include mobile {
       grid-row: 2;
@@ -66,7 +67,7 @@
       font-size: 1rem;
       line-height: 1.4;
       display: block;
-      margin-bottom: 1rem;
+      margin-bottom: 0.75rem;
       color: #a9aaab;
       font-weight: 500;
     }
@@ -76,10 +77,11 @@
       margin-bottom: 1rem;
       font-weight: 600;
       line-height: 1.2;
+      display: block;
     }
 
     p {
-      line-height: 1.4;
+      line-height: 2;
 
       margin-bottom: 2rem;
     }
@@ -87,6 +89,19 @@
 
   &__image {
     line-height: 0;
+    position: relative;
+
+    &-overlay {
+      opacity: 0;
+      background: rgb(121, 48, 254);
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      transition: all 150ms ease-in-out;
+    }
+
     img {
       height: auto;
       min-height: 0;
@@ -129,7 +144,9 @@
     }
 
     .feature__image {
-      background-color: #c5dbff;
+      &-overlay {
+        opacity: 0.2;
+      }
     }
   }
 }
