@@ -1,9 +1,11 @@
 .hero {
   margin-top: 9rem;
   margin-bottom: 3.5rem;
+  width: 85%;
 
   @include mobile {
     margin-top: 7rem;
+    width: auto;
   }
 
   &__title {
