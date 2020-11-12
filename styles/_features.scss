@@ -28,12 +28,14 @@
       span + span {
         transition: all 150ms ease-in-out;
         margin-left: 0.5rem;
+        padding-right: 0.5rem;
       }
 
       &:hover {
         color: var(--colour-primary);
         span + span {
           margin-left: 1rem;
+          padding-right: 0rem;
         }
       }
     }
