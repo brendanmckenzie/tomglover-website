@@ -1,7 +1,15 @@
 import * as React from "react";
 import { AppProps } from "next/dist/next-server/lib/router/router";
 import Head from "next/head";
+import TagManager from "react-gtm-module";
+
 import "../styles/app.scss";
+
+const tagManagerArgs = {
+  gtmId: "GTM-NFKJ3BR",
+};
+
+typeof document !== "undefined" && TagManager.initialize(tagManagerArgs);
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
