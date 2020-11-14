@@ -65,7 +65,7 @@ img {
   max-width: 980px;
   margin: 0 auto;
 
-  padding: 2rem;
+  padding: 2rem 0;
 
   @include mobile {
     padding: 1rem;
