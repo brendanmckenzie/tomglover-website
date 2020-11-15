@@ -18,7 +18,7 @@ const options: ApolloClientOptions<NormalizedCacheObject> = {
     "X-Token": config.token,
   },
 
-  uri: `https://app.pokko.io/${config.project}/${config.environment}/graphql`,
+  uri: `https://au-syd1.pokko.io/${config.project}/${config.environment}/graphql`,
 };
 
 export const client = new ApolloClient(options);
