@@ -28,6 +28,14 @@ export type HomePageProps = {
   sharing: Sharing;
 };
 
+const nl2br = (input: string) =>
+  input.split("\n").map((str, idx) => (
+    <React.Fragment key={idx}>
+      {str}
+      <br />
+    </React.Fragment>
+  ));
+
 const HomePage: React.FC<HomePageProps> = ({
   title,
   summary,
@@ -45,8 +53,8 @@ const HomePage: React.FC<HomePageProps> = ({
     <div className="container">
       <Header />
       <div className="hero">
-        <div className="hero__title">{title}</div>
-        <p className="hero__summary">{summary}</p>
+        <div className="hero__title">{nl2br(title)}</div>
+        <p className="hero__summary">{nl2br(summary)}</p>
         <div className="hero__actions">
           <a className="button --primary" href="mailto:hello@tomglover.com.au">
             Get in touch
