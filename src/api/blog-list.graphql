@@ -1,6 +1,6 @@
 query {
   entries {
-    allArticle(skip: 0, take: 25, orderBy: TITLE_ASC) {
+    allArticle(skip: 0, take: 25, orderBy: DATE_DESC) {
       nodes {
         id
         title

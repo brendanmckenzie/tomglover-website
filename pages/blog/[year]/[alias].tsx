@@ -27,6 +27,9 @@ type BlogProps = {
   title: string;
   category: string;
   imageUrl: string;
+  imageCredit: string;
+  imageCreditSource: string;
+  imageCreditUrl: string;
   date: string;
   author: string;
   body: (Image | Markdown)[];
@@ -51,6 +54,9 @@ const Blog: NextPage<BlogProps> = ({
   author,
   category,
   imageUrl,
+  imageCredit,
+  imageCreditSource,
+  imageCreditUrl,
   body,
   sharing,
 }) => (
@@ -78,6 +84,32 @@ const Blog: NextPage<BlogProps> = ({
         </div>
 
         {imageUrl ? <img src={imageUrl} alt={title} /> : null}
+        {imageCredit ? (
+          <div className="article__image-credit">
+            <ul>
+              <li>Photo by</li>
+              <li>{imageCredit}</li>
+              {imageCreditSource ? (
+                <>
+                  <li>via</li>
+                  <li>
+                    {imageCreditUrl ? (
+                      <a
+                        href={imageCreditUrl}
+                        target="_blank"
+                        rel="noreferrer noopener"
+                      >
+                        {imageCreditSource}
+                      </a>
+                    ) : (
+                      <span>{imageCreditSource}</span>
+                    )}
+                  </li>
+                </>
+              ) : null}
+            </ul>
+          </div>
+        ) : null}
       </section>
       <article className="article__body">
         {body.map((mod, idx) => (
@@ -140,6 +172,9 @@ export const getStaticProps: GetStaticProps = async (context) => {
       imageUrl: data.image?.url ?? null,
       category: data.category?.name || null,
       author: data.author?.name || null,
+      imageCredit: data.imageCredit || null,
+      imageCreditSource: data.imageCreditSource || null,
+      imageCreditUrl: data.imageCreditUrl || null,
 
       body: data.body.map(
         ({ __typename, ...rest }) =>

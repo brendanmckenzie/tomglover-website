@@ -18,6 +18,9 @@ query($path: [String!]) {
       image {
         url(process: { width: 1200, fit: COVER, position: CENTRE })
       }
+      imageCredit
+      imageCreditSource
+      imageCreditUrl
       body {
         __typename
         ... on Image {

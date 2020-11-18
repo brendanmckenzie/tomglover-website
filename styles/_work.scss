@@ -39,4 +39,27 @@
     font-size: 0.75rem;
     color: #a9aaab;
   }
+
+  &__image-credit {
+    margin-top: 0.5rem;
+    display: grid;
+    justify-items: end;
+
+    ul {
+      display: grid;
+      grid-auto-flow: column;
+      column-gap: 0.25ch;
+
+      li {
+        list-style: none;
+        color: #a9aaab;
+        font-size: 0.75rem;
+        font-weight: 500;
+
+        a {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
 }
