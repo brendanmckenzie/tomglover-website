@@ -12,6 +12,10 @@
     display: grid;
     grid-auto-flow: row;
     row-gap: 4.25rem;
+
+    &.--home {
+      margin-top: 9rem;
+    }
   }
 
   &__more {

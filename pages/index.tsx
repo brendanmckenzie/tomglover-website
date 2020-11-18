@@ -53,7 +53,7 @@ const HomePage: React.FC<HomePageProps> = ({
           </a>
         </div>
       </div>
-      <div className="features__list">
+      <div className="features__list --home">
         {features.map((ent, idx) => (
           <Feature key={idx} {...ent} />
         ))}

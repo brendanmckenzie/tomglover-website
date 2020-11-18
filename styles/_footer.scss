@@ -7,8 +7,6 @@
     row-gap: 1rem;
     align-items: center;
 
-    font-size: 0.75rem;
-
     @include mobile {
       grid-auto-flow: row;
     }
