@@ -34,10 +34,7 @@ export const BlogListPage: React.FC<BlogListPageProps> = ({ posts }) => (
         <h1>Blog</h1>
         <div className="posts__list">
           {posts.map((ent) => (
-            <Link
-              key={ent.id}
-              href={`/blog/${ent.date.substr(0, 4)}/${ent.alias}`}
-            >
+            <Link key={ent.id} href={`/blog/${ent.alias}`}>
               <a className="post">
                 <small>{ent.category}</small>
                 <h3>{ent.title}</h3>

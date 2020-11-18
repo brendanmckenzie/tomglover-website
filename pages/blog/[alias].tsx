@@ -1,12 +1,12 @@
 import React from "react";
 import Head from "next/head";
 import { NextPage, GetStaticPaths, GetStaticProps } from "next";
-import { Footer } from "../../../components/Footer";
-import { Header } from "../../../components/Header";
-import { client } from "../../../src/pokko";
+import { Footer } from "../../components/Footer";
+import { Header } from "../../components/Header";
+import { client } from "../../src/pokko";
 import Markdown from "react-markdown";
 import Link from "next/link";
-import { Sharing } from "../..";
+import { Sharing } from "..";
 
 type ModuleProps = {
   type: string;
@@ -128,8 +128,8 @@ const Blog: NextPage<BlogProps> = ({
 
 export default Blog;
 
-const query = require("../../../src/api/blog-paths.graphql");
-const querySingle = require("../../../src/api/blog-item.graphql");
+const query = require("../../src/api/blog-paths.graphql");
+const querySingle = require("../../src/api/blog-item.graphql");
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const res = await client.query({
@@ -141,8 +141,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     .filter((ent) => ent.path.length > 0)
     .map((ent) => ({
       params: {
-        year: ent.path[0],
-        alias: ent.path[1],
+        alias: ent.path[0],
       },
     }))
     .filter((ent) => ent.params.alias && ent.params.alias.length > 0);
@@ -154,13 +153,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const res = await client.query({
     query: querySingle,
     variables: {
-      path: [
-        "website",
-        "home",
-        "blog",
-        context.params.year,
-        context.params.alias,
-      ],
+      path: ["website", "home", "blog", context.params.alias],
     },
   });
 
