@@ -4,7 +4,7 @@
   width: 85%;
 
   @include mobile {
-    margin-top: 7rem;
+    margin-top: 3.5rem;
     width: auto;
   }
 
@@ -14,6 +14,10 @@
     line-height: 1.45;
 
     margin-bottom: 1.75rem;
+
+    @include mobile {
+      font-size: 2rem;
+    }
   }
 
   &__summary {
@@ -23,5 +27,9 @@
     color: #525050;
 
     margin-bottom: 4rem;
+
+    @include mobile {
+      font-size: 1rem;
+    }
   }
 }

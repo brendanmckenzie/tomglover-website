@@ -16,7 +16,11 @@
     align-items: center;
 
     @include mobile {
-      column-gap: 2rem;
+      column-gap: 0rem;
+
+      a {
+        margin: 0 1.5rem;
+      }
     }
 
     button {

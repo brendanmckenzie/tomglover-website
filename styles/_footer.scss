@@ -9,6 +9,7 @@
 
     @include mobile {
       grid-auto-flow: row;
+      row-gap: 5rem;
     }
   }
 
