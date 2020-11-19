@@ -34,8 +34,12 @@
       font-weight: 500;
     }
 
+    p {
+      line-height: 1.4;
+    }
+
     @include mobile {
-      row-gap: 1.5rem;
+      row-gap: 2rem;
 
       h2 {
         margin-bottom: 0;
