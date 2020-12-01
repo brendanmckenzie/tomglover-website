@@ -1,46 +1,20 @@
-import React from "react";
+import * as React from "react";
 import Head from "next/head";
 import { NextPage, GetStaticPaths, GetStaticProps } from "next";
 import { Footer } from "../../components/Footer";
 import { Header } from "../../components/Header";
 import { client } from "../../src/pokko";
-import Markdown from "react-markdown";
+
 import Link from "next/link";
 import { Sharing } from "..";
-
-type ModuleProps = {
-  type: string;
-};
-
-type Image = ModuleProps & {
-  type: "Image";
-  source: {
-    url: string;
-  };
-};
-type Markdown = ModuleProps & {
-  type: "Markdown";
-  body: string;
-};
+import { Module, ModuleProps, Modules } from "../../components/Module";
 
 type WorkProps = {
   title: string;
   imageUrl: string;
   category: string;
-  body: (Image | Markdown)[];
+  body: Modules[];
   sharing: Sharing;
-};
-
-const Module: React.FC<Image | Markdown> = (props) => {
-  switch (props.type) {
-    case "Markdown":
-      return <Markdown className="content">{props.body}</Markdown>;
-    case "Image":
-      if (props.source?.url) {
-        return <img src={props.source.url} />;
-      }
-  }
-  return null;
 };
 
 const Work: NextPage<WorkProps> = ({

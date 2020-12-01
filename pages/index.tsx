@@ -145,6 +145,7 @@ export async function getStaticProps() {
   };
 
   return {
+    revalidate: 5,
     props,
   };
 }
