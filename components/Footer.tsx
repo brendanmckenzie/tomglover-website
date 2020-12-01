@@ -38,7 +38,7 @@ export const Footer: React.FC = () => (
             rel="noopener nofollow"
           >
             <img
-              src="https://cdn.pokko.io/p/pokko-250x-trans.png"
+              src="https://cdn.pokko.io/p/pokko-512w-trans.png"
               alt="Powered by Pokko"
             />
           </a>
