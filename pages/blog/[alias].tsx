@@ -87,8 +87,6 @@ const Blog: NextPage<BlogProps> = ({
         {body.map((mod, idx) => (
           <Module key={idx} {...mod} />
         ))}
-
-        <Module type="Video" youTubeVideoId="ptc0Jni6Tik" />
       </article>
       <div className="article__actions">
         <Link href="/blog">
