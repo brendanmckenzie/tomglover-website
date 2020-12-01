@@ -2,7 +2,7 @@ import * as React from "react";
 import Markdown from "react-markdown";
 
 export type ModuleProps = {
-  type: string;
+  type: "Image" | "Markdown" | "Video";
 };
 
 export type Image = ModuleProps & {
@@ -30,6 +30,7 @@ export const Module: React.FC<Modules> = (props) => {
       if (props.source?.url) {
         return <img src={props.source.url} />;
       }
+      return null;
     case "Video":
       if (props.youTubeVideoId) {
         return (
@@ -45,6 +46,6 @@ export const Module: React.FC<Modules> = (props) => {
           </div>
         );
       }
+      return null;
   }
-  return null;
 };
