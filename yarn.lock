@@ -1033,6 +1033,11 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
+"@corex/deepmerge@^2.4.24":
+  version "2.4.24"
+  resolved "https://registry.yarnpkg.com/@corex/deepmerge/-/deepmerge-2.4.24.tgz#d02aa2bf1a5c7f3847d4227d6700419450909f63"
+  integrity sha512-TBYXnhxYU9kqDhUXm/rgDRRAxHVpX8Y3ZX+zmTmQuhRF9p7orsrx+P/lVXS7PcPnOFFVE3ZvyE5MIYFipecy8g==
+
 "@graphql-typed-document-node/core@^3.0.0":
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@graphql-typed-document-node/core/-/core-3.1.0.tgz#0eee6373e11418bfe0b5638f654df7a4ca6a3950"
@@ -3793,6 +3798,14 @@ neo-async@^2.5.0, neo-async@^2.6.1, neo-async@^2.6.2:
   version "2.6.2"
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.2.tgz#b4aafb93e3aeb2d8174ca53cf163ab7d7308305f"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
+
+next-sitemap@^1.3.10:
+  version "1.3.10"
+  resolved "https://registry.yarnpkg.com/next-sitemap/-/next-sitemap-1.3.10.tgz#56efc4eef4d59cbb184a4a5e1bb3f6975c0428cc"
+  integrity sha512-M70W/GYWt5xqca03jIhx3/362bPsrmCGeVFDqm8asYkXwBQ20k6LpTN+CBMafdad6QaajCfS2efPS98CtUk9Uw==
+  dependencies:
+    "@corex/deepmerge" "^2.4.24"
+    minimist "^1.2.5"
 
 next-tick@~1.0.0:
   version "1.0.0"
