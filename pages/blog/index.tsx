@@ -1,10 +1,11 @@
-import { client } from "../../src/pokko";
+import { client, clientPreview } from "../../src/pokko";
 
 import * as React from "react";
 import Head from "next/head";
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
 import Link from "next/link";
+import { GetStaticProps } from "next";
 
 const query = require("../../src/api/blog-list.graphql");
 
@@ -63,8 +64,8 @@ export const BlogListPage: React.FC<BlogListPageProps> = ({ posts }) => (
   </>
 );
 
-export async function getStaticProps() {
-  const res = await client.query({
+export const getStaticProps: GetStaticProps = async (context) => {
+  const res = await (context.preview ? clientPreview : client).query({
     query,
   });
 
@@ -93,6 +94,6 @@ export async function getStaticProps() {
     revalidate: 5,
     props,
   };
-}
+};
 
 export default BlogListPage;

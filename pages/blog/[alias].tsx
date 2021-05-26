@@ -3,7 +3,7 @@ import Head from "next/head";
 import { NextPage, GetStaticPaths, GetStaticProps } from "next";
 import { Footer } from "../../components/Footer";
 import { Header } from "../../components/Header";
-import { client } from "../../src/pokko";
+import { client, clientPreview } from "../../src/pokko";
 import Link from "next/link";
 import { Sharing } from "..";
 import { Module, ModuleProps, Modules } from "../../components/Module";
@@ -122,7 +122,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const res = await client.query({
+  const res = await (context.preview ? clientPreview : client).query({
     query: querySingle,
     variables: {
       path: ["website", "home", "blog", context.params.alias],

@@ -1,10 +1,11 @@
-import { client } from "../../src/pokko";
+import { client, clientPreview } from "../../src/pokko";
 
 import * as React from "react";
 import { Feature, FeatureProps } from "../../components/Feature";
 import Head from "next/head";
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
+import { GetStaticProps } from "next";
 
 const query = require("../../src/api/work-list.graphql");
 
@@ -33,8 +34,8 @@ export const WorkPage: React.FC<WorkPageProps> = ({ features }) => (
   </>
 );
 
-export async function getStaticProps() {
-  const res = await client.query({
+export const getStaticProps: GetStaticProps = async (context) => {
+  const res = await (context.preview ? clientPreview : client).query({
     query,
   });
 
@@ -59,6 +60,6 @@ export async function getStaticProps() {
   return {
     props,
   };
-}
+};
 
 export default WorkPage;

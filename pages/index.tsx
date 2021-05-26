@@ -2,9 +2,10 @@ import * as React from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { Feature, FeatureProps } from "../components/Feature";
-import { client } from "../src/pokko";
+import { client, clientPreview } from "../src/pokko";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
+import { GetStaticProps } from "next";
 
 const query = require("../src/api/home.graphql");
 
@@ -100,8 +101,8 @@ const HomePage: React.FC<HomePageProps> = ({
   </>
 );
 
-export async function getStaticProps() {
-  const res = await client.query({
+export const getStaticProps: GetStaticProps = async (context) => {
+  const res = await (context.preview ? clientPreview : client).query({
     query,
   });
 
@@ -120,23 +121,27 @@ export async function getStaticProps() {
     title: data.title,
     summary: data.summary,
     contactMessage: data.contactMessage,
-    features: data.features.map(
-      (ent) =>
-        ({
-          title: ent.title,
-          summary: ent.summary,
-          category: ent.category?.name,
-          url: `/work/${ent.alias}`,
-          thumbnailUrl: ent.image?.url ?? null,
-        } as FeatureProps)
-    ),
-    brands: data.brands.map(
-      (ent) =>
-        ({
-          name: ent.name,
-          image: ent.logo?.url ?? null,
-        } as Brand)
-    ),
+    features: data.features
+      .filter((ent) => Boolean(ent))
+      .map(
+        (ent) =>
+          ({
+            title: ent.title,
+            summary: ent.summary,
+            category: ent.category?.name,
+            url: `/work/${ent.alias}`,
+            thumbnailUrl: ent.image?.url ?? null,
+          } as FeatureProps)
+      ),
+    brands: data.brands
+      .filter((ent) => Boolean(ent))
+      .map(
+        (ent) =>
+          ({
+            name: ent.name,
+            image: ent.logo?.url ?? null,
+          } as Brand)
+      ),
     sharing: {
       title: data.shareTitle || null,
       description: data.shareDescription || null,
@@ -148,6 +153,6 @@ export async function getStaticProps() {
     revalidate: 5,
     props,
   };
-}
+};
 
 export default HomePage;
